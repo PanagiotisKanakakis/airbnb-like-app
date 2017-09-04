@@ -1,0 +1,68 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion '25.0.0'
+
+    defaultConfig {
+        applicationId "com.sourcey.materialloginexample"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/spring.schemas'
+        exclude 'META-INF/spring.tooling'
+        exclude 'META-INF/INDEX.LIST'
+        exclude 'META-INF/spring.*'
+    }
+
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:25.0.1'
+    compile 'com.android.support:design:25.0.1'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile "org.springframework:org.springframework.web:3.1.2.RELEASE"
+    compile "org.springframework:org.springframework.core:3.1.2.RELEASE"
+    compile "org.springframework:org.springframework.aop:3.1.2.RELEASE"
+    compile "org.springframework:org.springframework.context:3.1.2.RELEASE"
+    compile "org.springframework:org.springframework.transaction:3.1.2.RELEASE"
+    compile "org.aspectj:aspectjrt:1.6.8"
+    compile "org.aspectj:aspectjweaver:1.6.8"
+    compile "org.springframework:org.springframework.beans:3.1.2.RELEASE"
+    compile "org.springframework:org.springframework.asm:3.1.2.RELEASE"
+    compile "org.springframework:org.springframework.expression:3.1.2.RELEASE"
+    compile("org.springframework.batch:spring-batch-core:2.1.2.RELEASE") {
+        exclude(module: 'spring-tx')
+        exclude(module: 'spring-beans')
+        exclude(module: 'spring-context')
+        exclude(module: 'spring-aop')
+        exclude(module: 'spring-core')
+    }
+    compile group: 'joda-time', name: 'joda-time', version: '2.8.1'
+
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.2'
+
+}

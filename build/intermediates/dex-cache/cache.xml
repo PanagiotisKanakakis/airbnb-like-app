@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.gradle/caches/modules-2/files-2.1/xpp3/xpp3_min/1.1.4c/19d4e90b43059058f6e056f794f0ea4030d60b86/xpp3_min-1.1.4c.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="19d4e90b43059058f6e056f794f0ea4030d60b86">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/xpp3_min-1.1.4c_958c01bf3d568260d2ab45498807ba6254eec631/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.android/build-cache/cb79d8e5e4c1ea6dfdf2132717f7193853d2dea9/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b24e1c688744078e1fa833ffadf696794761bbe5">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_0143f80dc14de4ea514f2639f434be77a0abe1fe/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.gradle/caches/modules-2/files-2.1/org.springframework.batch/spring-batch-infrastructure/2.1.2.RELEASE/a1927f543e91455edd3ae4e149c2e53e5ed0d293/spring-batch-infrastructure-2.1.2.RELEASE.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a1927f543e91455edd3ae4e149c2e53e5ed0d293">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/spring-batch-infrastructure-2.1.2.RELEASE_aada88b8f0e3ce53b91ae6d20021707965dde957/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.4.2/ceb72830d95c512b4b300a38f29febc85bdf6e4b/jackson-core-2.4.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ceb72830d95c512b4b300a38f29febc85bdf6e4b">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/jackson-core-2.4.2_d60ddd75dbfd363b0a3630a0b1e43491dcebae10/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.4.2/8e31266a272ad25ac4c089734d93e8d811652c1f/jackson-databind-2.4.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8e31266a272ad25ac4c089734d93e8d811652c1f">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/jackson-databind-2.4.2_19900255754e5cff38fbbd3a204a1eb2fd047b41/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.gradle/caches/modules-2/files-2.1/com.thoughtworks.xstream/xstream/1.3/3f755b1a46744302712b1b962c4ab64de392f477/xstream-1.3.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3f755b1a46744302712b1b962c4ab64de392f477">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/xstream-1.3_3e8c232918f9ef3a5c0bc24f54ecdd5b52d29604/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.gradle/caches/modules-2/files-2.1/org.springframework/org.springframework.transaction/3.1.2.RELEASE/f9efe9e07e73ab593de0353e01b8bcbaafbfd3c1/org.springframework.transaction-3.1.2.RELEASE.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f9efe9e07e73ab593de0353e01b8bcbaafbfd3c1">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/org.springframework.transaction-3.1.2.RELEASE_1a2130256987a620c1c1fe57443099a189249b96/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.android/build-cache/3e418a266f7c7699de4bb8ef0871d715f9290610/output/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c0bd6ffb002a85b5e7cad29f8558d1cc59539679">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_87a54c082b47bb8ba1bd00b96533a49353a5690f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.gradle/caches/modules-2/files-2.1/org.springframework.batch/spring-batch-core/2.1.2.RELEASE/95ce2b1754520b7eeb1218d73c75de7bb6769ddd/spring-batch-core-2.1.2.RELEASE.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="95ce2b1754520b7eeb1218d73c75de7bb6769ddd">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/spring-batch-core-2.1.2.RELEASE_48eb4aa1c7638360bbe6b75661e119c0726c797c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.gradle/caches/modules-2/files-2.1/org.springframework/org.springframework.aop/3.1.2.RELEASE/a68c5ee96d735ac68c00e226e768ef70ae1d5c57/org.springframework.aop-3.1.2.RELEASE.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a68c5ee96d735ac68c00e226e768ef70ae1d5c57">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/org.springframework.aop-3.1.2.RELEASE_62e0e16047b3d62d81221535973eef2c0c5ef453/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.gradle/caches/modules-2/files-2.1/org.codehaus.jettison/jettison/1.1/1a01a2a1218fcf9faa2cc2a6ced025bdea687262/jettison-1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="1a01a2a1218fcf9faa2cc2a6ced025bdea687262">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/jettison-1.1_39087e50894c4a991d100ea1cf5cbfda3064125e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.6.8/8c234df6a43dd5ba355803122e33caa7ccd11011/aspectjrt-1.6.8.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8c234df6a43dd5ba355803122e33caa7ccd11011">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/aspectjrt-1.6.8_b9e46a913a94ff99ece6bcd8a3a530cf179c825a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.8.1/f5bfc718c95a7b1d3c371bb02a188a4df18361a9/joda-time-2.8.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f5bfc718c95a7b1d3c371bb02a188a4df18361a9">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/joda-time-2.8.1_3205f0a209b02a344ddb23e2b687b170d6641624/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.gradle/caches/modules-2/files-2.1/org.springframework/org.springframework.expression/3.1.2.RELEASE/c6d4aca58f993bda3cce2bc0536bd168cc9d7ed5/org.springframework.expression-3.1.2.RELEASE.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c6d4aca58f993bda3cce2bc0536bd168cc9d7ed5">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/org.springframework.expression-3.1.2.RELEASE_3bebe7d3752a5fa11d7987e4cbae25245b9ac814/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.android/build-cache/7f39ef29de96c4089751ed87640c98aed434a44d/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3b236883e0df6002cabb01ce57d00a5b1e5de610">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_8a193713286feaa2d910b6daddb03c205bbc12e7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.android/build-cache/c34e774298279c0a89e3964908243ff7a1ee0697/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="00d4c8eebf2b681073c72a26bd0849549e51c7cb">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_991f4e01da552d14d5be84f26fb7a988940de788/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.android/build-cache/6e8a5928c39363138c05bdbc3f8502ea2684b5fa/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="772bed2d992b67b9d0327f766cc95cd63031dcd3">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_998773c83f1009decbd9f872b45873e14b2b01be/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.gradle/caches/modules-2/files-2.1/org.springframework/org.springframework.beans/3.1.2.RELEASE/38ff7985f572a87d72023eedce3d720ce1ba4083/org.springframework.beans-3.1.2.RELEASE.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="38ff7985f572a87d72023eedce3d720ce1ba4083">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/org.springframework.beans-3.1.2.RELEASE_fcf48f37bcb95c8e59e945a2799f0c680ebc18a0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.gradle/caches/modules-2/files-2.1/org.springframework/org.springframework.context/3.1.2.RELEASE/6787712741427c1014aaca503d24e3b3f05f396/org.springframework.context-3.1.2.RELEASE.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="06787712741427c1014aaca503d24e3b3f05f396">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/org.springframework.context-3.1.2.RELEASE_5d985ebde29f605933663543f61eb9dbc73bf054/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.gradle/caches/modules-2/files-2.1/org.aopalliance/com.springsource.org.aopalliance/1.0.0/386c79a41560b4bbb6015fdff45413f665fc5c96/com.springsource.org.aopalliance-1.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="386c79a41560b4bbb6015fdff45413f665fc5c96">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.springsource.org.aopalliance-1.0.0_558795ba820cc05e8e6117ccc6a4c88951d704aa/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.android/build-cache/3e418a266f7c7699de4bb8ef0871d715f9290610/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="26c6eef571592c91f29e56fda0bac73321de0c92">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_1c8e64c2a2db0f968cdf69108bbabad9005019a6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.4.0/d6a66c7a5f01cf500377bd669507a08cfeba882a/jackson-annotations-2.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d6a66c7a5f01cf500377bd669507a08cfeba882a">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/jackson-annotations-2.4.0_94d0542569e23f5147d1fe929a40a40676db4c90/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.android/build-cache/64c5e07736bf72eafeef1576d207913e5bb6a8ee/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="bc7e99e8d0fc279a05aa91378530f467ad62d443">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_c62a4b0e285b623784279ee8d4e88f31117b49cb/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.gradle/caches/modules-2/files-2.1/org.springframework/org.springframework.core/3.1.2.RELEASE/dd4295f0567deb2cc629dd647d2f055268c2fd3e/org.springframework.core-3.1.2.RELEASE.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="dd4295f0567deb2cc629dd647d2f055268c2fd3e">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/org.springframework.core-3.1.2.RELEASE_d4501e6bba6ebcdf7f067069fb5082ce71c2f955/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.gradle/caches/modules-2/files-2.1/org.springframework/org.springframework.web/3.1.2.RELEASE/34a73557b66ea3c68892c042f2c9ba7e8bff8eac/org.springframework.web-3.1.2.RELEASE.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="34a73557b66ea3c68892c042f2c9ba7e8bff8eac">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/org.springframework.web-3.1.2.RELEASE_73e928476e9eb178cd60f8a8941ecfb0a60d00b9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.android/build-cache/f973ce1ef41e3f597d919c6e9d56a59b8575ea2f/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_a60a92860f5335aef59c7ca3589bec7fbc366d6b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.android/build-cache/84c6891f5befc413c8231606c5cc01fac687d7ad/output/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f83b00041ecfba705603fec40363416c7de69719">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_b0dc6fff52c6f7816e9ee4b209c52c49ca9ec05a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.android/build-cache/27754ab375b7b5e1c1d7f72e71c35f233a9b1f4a/output/jars/libs/internal_impl-25.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3af8cc51ef7088e56f132780da8c0bd858b6a6ad">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_3ed0d3c44b2cd3119d58a3fa4987136153b77c52/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjweaver/1.6.8/d3fdabe0a1f7f395d64bf9d0c1a3e0f1b98430df/aspectjweaver-1.6.8.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d3fdabe0a1f7f395d64bf9d0c1a3e0f1b98430df">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/aspectjweaver-1.6.8_76f58f2136d70d4d667fc1671344fc8dabffcbf0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/panagiotis/.gradle/caches/modules-2/files-2.1/org.springframework/org.springframework.asm/3.1.2.RELEASE/d45753d8048317099395ce7f2bbcdb1776a2e26c/org.springframework.asm-3.1.2.RELEASE.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d45753d8048317099395ce7f2bbcdb1776a2e26c">
+        <dex dex="/home/panagiotis/Desktop/Airbnb/app/build/intermediates/transforms/dex/debug/folders/1000/10/org.springframework.asm-3.1.2.RELEASE_d7c5e2727620b81fa559ad64d2f3289c2c5cd73a/classes.dex" />
+    </item>
+
+</items>

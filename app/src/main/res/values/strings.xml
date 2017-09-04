@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Airbnb</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="host">Host</string>
+    <string name="tenant">Tenant</string>
+</resources>
