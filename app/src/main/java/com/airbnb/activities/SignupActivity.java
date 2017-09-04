@@ -34,6 +34,7 @@ public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
     private ProgressDialog progressDialog ;
     @Bind(R.id.input_name) EditText _nameText;
+    @Bind(R.id.input_surname) EditText _surnameText;
     @Bind(R.id.input_email) EditText _emailText;
     @Bind(R.id.input_mobile) EditText _mobileText;
     @Bind(R.id.input_password) EditText _passwordText;
@@ -90,12 +91,12 @@ public class SignupActivity extends AppCompatActivity {
         String email = _emailText.getText().toString();
         String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
-        String reEnterPassword = _reEnterPasswordText.getText().toString();
+        String surname = _surnameText.getText().toString();
         String username = _username.getText().toString();
         Boolean host = _host.isChecked();
         Boolean tenant = _tenant.isChecked();
 
-        new SignUp().execute(name,email,mobile,password,username,host,tenant);
+        new SignUp().execute(name,surname,email,mobile,password,username,host,tenant);
     }
 
 
@@ -114,6 +115,7 @@ public class SignupActivity extends AppCompatActivity {
         boolean valid = true;
 
         String name = _nameText.getText().toString();
+        String surname = _surnameText.getText().toString();
         String email = _emailText.getText().toString();
         String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
@@ -125,6 +127,13 @@ public class SignupActivity extends AppCompatActivity {
             valid = false;
         } else {
             _nameText.setError(null);
+        }
+
+        if (surname.isEmpty() || surname.length() < 3) {
+            _surnameText.setError("at least 3 characters");
+            valid = false;
+        } else {
+            _surnameText.setError(null);
         }
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
@@ -174,15 +183,16 @@ public class SignupActivity extends AppCompatActivity {
             final String uri = "http://192.168.1.2:8080/register";
             UserRegisterRequestDto userRegisterRequestDto = new UserRegisterRequestDto();
             userRegisterRequestDto.setName(params[0].toString());
-            userRegisterRequestDto.setEmail(params[1].toString());
-            userRegisterRequestDto.setPhoneNumber(params[2].toString());
-            userRegisterRequestDto.setPassword(params[3].toString());
-            userRegisterRequestDto.setUsername(params[4].toString());
+            userRegisterRequestDto.setSurname(params[1].toString());
+            userRegisterRequestDto.setEmail(params[2].toString());
+            userRegisterRequestDto.setPhoneNumber(params[3].toString());
+            userRegisterRequestDto.setPassword(params[4].toString());
+            userRegisterRequestDto.setUsername(params[5].toString());
             List<RoleDto> roles = new ArrayList<>();
 
-            if (Boolean.getBoolean(params[5].toString()))
-                roles.add(RoleDto.HOST);
             if (Boolean.getBoolean(params[6].toString()))
+                roles.add(RoleDto.HOST);
+            if (Boolean.getBoolean(params[7].toString()))
                 roles.add(RoleDto.TENANT);
             userRegisterRequestDto.setRoleDtos(roles);
 

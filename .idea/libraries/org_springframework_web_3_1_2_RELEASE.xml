@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="org.springframework.web-3.1.2.RELEASE">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/org.springframework.web/3.1.2.RELEASE/34a73557b66ea3c68892c042f2c9ba7e8bff8eac/org.springframework.web-3.1.2.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/org.springframework.web/3.1.2.RELEASE/7d4d1be9478d7a011bbe4d08ecf1b2053e0d4c9d/org.springframework.web-3.1.2.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
