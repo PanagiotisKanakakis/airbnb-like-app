@@ -80,7 +80,8 @@ public class LoginActivity extends AppCompatActivity {
         String username = _username.getText().toString();
         String password = _passwordText.getText().toString();
 
-        new Login().execute(username,password);
+        onLoginSuccess();
+        //new Login().execute(username,password);
     }
 
 
@@ -104,6 +105,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
+        Intent intent = new Intent(getApplicationContext(), MainLoggedInActivity.class);
+        startActivityForResult(intent, REQUEST_SIGNUP);
         finish();
     }
 
