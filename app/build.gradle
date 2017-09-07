@@ -70,4 +70,5 @@ dependencies {
     compile 'com.airbnb.android:epoxy:2.3.0'
     annotationProcessor 'com.airbnb.android:epoxy-processor:2.3.0'
 
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }

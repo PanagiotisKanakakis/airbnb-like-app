@@ -24,12 +24,15 @@
         </activity>
         <activity
             android:name="com.airbnb.activities.LoginActivity"
-            android:theme="@style/AppTheme.Dark" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.airbnb.activities.SignupActivity"
-            android:theme="@style/AppTheme.Dark" />
-        <activity android:name="com.airbnb.activities.MainLoggedInActivity" />
-        <activity android:name="com.airbnb.activities.SearchResultActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.airbnb.activities.MainLoggedInActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.airbnb.activities.SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
-
 </manifest>

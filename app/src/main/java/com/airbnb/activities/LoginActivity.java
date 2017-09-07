@@ -61,6 +61,12 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onPause(){
+        super.onPause();
+        progressDialog.dismiss();
+    }
+
     public void login() {
         Log.d(TAG, "Login");
 
