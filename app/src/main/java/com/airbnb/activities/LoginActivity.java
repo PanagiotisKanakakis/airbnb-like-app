@@ -1,12 +1,11 @@
 package com.airbnb.activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-
-import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,8 +20,8 @@ import com.sourcey.activities.R;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.client.RestTemplate;
 
-import butterknife.ButterKnife;
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -39,7 +38,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        
+
+        progressDialog =  new ProgressDialog(LoginActivity.this,
+                R.style.AppTheme_Dark_Dialog);
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -77,8 +78,7 @@ public class LoginActivity extends AppCompatActivity {
 
         _loginButton.setEnabled(false);
 
-        progressDialog =  new ProgressDialog(LoginActivity.this,
-                R.style.AppTheme_Dark_Dialog);
+
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();

@@ -15,20 +15,18 @@ import android.widget.Toast;
 
 import com.airbnb.rest.RestApi;
 import com.airbnb.shared.dto.user.RoleDto;
-import com.airbnb.shared.dto.user.UserLogInRequestDto;
 import com.airbnb.shared.dto.user.UserRegisterRequestDto;
 import com.airbnb.shared.dto.user.UserRegisterResponseDto;
 import com.sourcey.activities.R;
 
-import org.springframework.context.annotation.Role;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
