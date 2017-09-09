@@ -117,14 +117,14 @@
                     android:layout_width="172dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/host"
-                    android:text="@string/host"
+                    android:text="Host"
                     />
 
                 <CheckBox
                     android:id="@+id/tenant"
                     android:layout_width="172dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/tenant"
+                    android:text="Tenant"
                    />
         </LinearLayout>
 

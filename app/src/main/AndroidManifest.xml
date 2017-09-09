@@ -34,7 +34,6 @@
         <activity
             android:name="com.airbnb.activities.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.airbnb.activities.SearchResultActivity"></activity>
     </application>
 
 </manifest>

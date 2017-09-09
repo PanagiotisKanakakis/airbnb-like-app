@@ -1,6 +1,7 @@
 package com.airbnb.activities;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,15 +11,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.airbnb.rest.RestApi;
 import com.airbnb.shared.dto.entity.Residence;
 import com.airbnb.shared.dto.residence.SearchResidenceDto;
+import com.google.gson.Gson;
 import com.sourcey.activities.R;
-
 import org.springframework.http.HttpEntity;
 import org.springframework.web.client.RestTemplate;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -165,7 +164,7 @@ public class SearchActivity extends AppCompatActivity {
 
         @Override
         protected Residence[] doInBackground(String... params) {
-            final String uri = "http://192.168.1.6:8080/searchResidence";
+            final String uri = "http://192.168.1.5:8080/searchResidence";
 
             SearchResidenceDto searchResidence = new SearchResidenceDto();
             searchResidence.setLocation(params[0]);
@@ -195,7 +194,13 @@ public class SearchActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Residence[]  resultSet) {
             if(resultSet != null){
+                Intent intent = new Intent(getApplicationContext(), MainLoggedInActivity.class);
+                Bundle bundle = new Bundle();
 
+                String residences_json = new Gson().toJson(resultSet);
+                bundle.putString("residences", residences_json);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }else
                 onSearchFailed();
         }
