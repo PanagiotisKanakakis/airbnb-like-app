@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.Utils.Util;
 import com.airbnb.rest.RestApi;
 import com.airbnb.shared.dto.user.RoleDto;
 import com.airbnb.shared.dto.user.UserRegisterRequestDto;
@@ -22,6 +23,7 @@ import com.sourcey.activities.R;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -178,7 +180,12 @@ public class SignupActivity extends AppCompatActivity {
 
         @Override
         protected UserRegisterResponseDto doInBackground(Object... params) {
-            final String uri = "http://192.168.1.2:8080/register";
+            String uri = "";
+            try {
+                uri = Util.getProperty("baseAddress",getApplicationContext()) +  "/register";
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             UserRegisterRequestDto userRegisterRequestDto = new UserRegisterRequestDto();
             userRegisterRequestDto.setName(params[0].toString());
             userRegisterRequestDto.setSurname(params[1].toString());

@@ -4,41 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    tools:context="com.airbnb.activities.MainLoggedInActivity">
+    tools:context="com.airbnb.activities.HostMainActivity">
 
     <LinearLayout
         android:id="@+id/container"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="top"
+        android:layout_height="495dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="8dp">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            style="@style/searchbutton"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/searchbarbackground"
-            android:minHeight="?attr/actionBarSize"
-            app:logo="@drawable/search"
-            app:title="Search"
-            app:titleMarginStart="32dp"
-            app:titleTextAppearance="@style/Toolbar.TitleText"
-
-            />
-
-        <ListView
-            android:id="@+id/searchResultView"
+            android:id="@+id/hostMenu"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:divider="@null" />
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/userMenu"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/inbox"
@@ -72,15 +50,16 @@
                 android:layout_height="match_parent"
                 android:drawableTop="@drawable/arrow"
                 android:paddingLeft="40dp"
-                android:paddingRight="35dp"
+                android:paddingRight="40dp"
                 android:paddingTop="10dp"
-                android:text="Host"
+                android:text="Tenant"
                 android:textSize="15sp"
                 android:textStyle="italic"
                 android:textColor="@color/black"
                 />
 
         </android.support.v7.widget.Toolbar>
-
     </LinearLayout>
+
+
 </android.support.constraint.ConstraintLayout>

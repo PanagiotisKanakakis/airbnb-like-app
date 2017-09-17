@@ -42,6 +42,7 @@ android {
 }
 
 
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile("org.springframework.batch:spring-batch-core:2.1.2.RELEASE") {
@@ -71,5 +72,6 @@ dependencies {
     compile 'org.springframework:org.springframework.expression:3.1.2.RELEASE'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.4.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.google.android.gms:play-services-maps:11.0.4'
     annotationProcessor 'com.airbnb.android:epoxy-processor:2.3.0'
 }

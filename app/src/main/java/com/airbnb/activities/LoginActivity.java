@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.Utils.Util;
 import com.airbnb.rest.RestApi;
 import com.airbnb.shared.dto.user.UserLogInRequestDto;
 import com.airbnb.shared.dto.user.UserLogInResponseDto;
@@ -20,19 +21,23 @@ import com.sourcey.activities.R;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+
     private ProgressDialog progressDialog ;
 
     @Bind(R.id.username) EditText _username;
     @Bind(R.id.input_password) EditText _passwordText;
     @Bind(R.id.btn_login) Button _loginButton;
     @Bind(R.id.link_signup) TextView _signupLink;
-    
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,13 +58,14 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                // Start the Signup activity
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
                 finish();
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
+
+
     }
 
     @Override
@@ -151,7 +157,13 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected UserLogInResponseDto doInBackground(String... params) {
-            final String uri = "http://192.168.1.2:8080/login";
+
+            String uri = "";
+            try {
+                uri = Util.getProperty("baseAddress",getApplicationContext()) +  "/login";
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             UserLogInRequestDto userLogInRequestDto = new UserLogInRequestDto();
             userLogInRequestDto.setUsername(params[0]);

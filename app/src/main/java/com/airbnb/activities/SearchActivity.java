@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.airbnb.Utils.Util;
 import com.airbnb.rest.RestApi;
 import com.airbnb.shared.dto.entity.Residence;
 import com.airbnb.shared.dto.residence.SearchResidenceDto;
@@ -18,6 +20,8 @@ import com.google.gson.Gson;
 import com.sourcey.activities.R;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.client.RestTemplate;
+
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -164,7 +168,13 @@ public class SearchActivity extends AppCompatActivity {
 
         @Override
         protected Residence[] doInBackground(String... params) {
-            final String uri = "http://192.168.1.5:8080/searchResidence";
+
+            String uri = "";
+            try {
+                uri = Util.getProperty("baseAddress",getApplicationContext()) +  "/searchResidence";
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             SearchResidenceDto searchResidence = new SearchResidenceDto();
             searchResidence.setLocation(params[0]);
