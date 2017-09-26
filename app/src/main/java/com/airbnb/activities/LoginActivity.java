@@ -14,8 +14,10 @@ import android.widget.Toast;
 
 import com.airbnb.Utils.Util;
 import com.airbnb.rest.RestApi;
+import com.airbnb.shared.dto.entity.User;
 import com.airbnb.shared.dto.user.UserLogInRequestDto;
 import com.airbnb.shared.dto.user.UserLogInResponseDto;
+import com.google.gson.Gson;
 import com.sourcey.activities.R;
 
 import org.springframework.http.HttpEntity;
@@ -92,8 +94,8 @@ public class LoginActivity extends AppCompatActivity {
         String username = _username.getText().toString();
         String password = _passwordText.getText().toString();
 
-        onLoginSuccess();
-        //new Login().execute(username,password);
+       // onLoginSuccess();
+        new Login().execute(username,password);
     }
 
 
@@ -115,10 +117,15 @@ public class LoginActivity extends AppCompatActivity {
         //moveTaskToBack(true);
     }
 
-    public void onLoginSuccess() {
+    public void onLoginSuccess(User user) {
         _loginButton.setEnabled(true);
         Intent intent = new Intent(getApplicationContext(), MainLoggedInActivity.class);
-        startActivityForResult(intent, REQUEST_SIGNUP);
+        Bundle bundle = new Bundle();
+
+        String user_json = new Gson().toJson(user);
+        bundle.putString("user", user_json);
+        intent.putExtras(bundle);
+        startActivity(intent);
         finish();
     }
 
@@ -151,12 +158,12 @@ public class LoginActivity extends AppCompatActivity {
         return valid;
     }
 
-    private class Login extends AsyncTask<String,Void,UserLogInResponseDto> {
+    private class Login extends AsyncTask<String,Void,User> {
 
         private RestTemplate restTemplate =  new RestApi().getRestTemplate();
 
         @Override
-        protected UserLogInResponseDto doInBackground(String... params) {
+        protected User doInBackground(String... params) {
 
             String uri = "";
             try {
@@ -169,10 +176,10 @@ public class LoginActivity extends AppCompatActivity {
             userLogInRequestDto.setUsername(params[0]);
             userLogInRequestDto.setPassword(params[1]);
 
-            UserLogInResponseDto result = null;
+            User result = null;
             try {
                 HttpEntity<UserLogInRequestDto> request = new HttpEntity<>(userLogInRequestDto);
-                result = restTemplate.postForObject(uri,request, UserLogInResponseDto.class);
+                result = restTemplate.postForObject(uri,request, User.class);
                 return result;
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
@@ -181,12 +188,12 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(UserLogInResponseDto userLoginResponseDto) {
-            if(userLoginResponseDto != null) {
+        protected void onPostExecute(final User user) {
+            if(user != null) {
                 new android.os.Handler().postDelayed(
                         new Runnable() {
                             public void run() {
-                                onLoginSuccess();
+                                onLoginSuccess(user);
                                 progressDialog.dismiss();
                             }
                         }, 1000);

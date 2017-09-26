@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.airbnb.Utils.Util;
 import com.airbnb.rest.RestApi;
 import com.airbnb.shared.dto.entity.Residence;
+import com.airbnb.shared.dto.entity.User;
 import com.airbnb.shared.dto.residence.SearchResidenceDto;
 import com.google.gson.Gson;
 import com.sourcey.activities.R;
@@ -46,12 +47,23 @@ public class SearchActivity extends AppCompatActivity {
     final Calendar calendar = Calendar.getInstance();
     EditText selectedDate;
 
+    private User active_user ;
+    private Bundle bundle = new Bundle();
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
+
+        if(getIntent()!=null && getIntent().getExtras() != null){
+            Bundle extras = getIntent().getExtras();
+            User user = new Gson().fromJson(extras.get("user").toString(), User.class);
+            if(user != null)
+                active_user = user;
+        }
+
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -96,6 +108,20 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(getIntent()!=null && getIntent().getExtras() != null){
+            Bundle extras = getIntent().getExtras();
+            User user = new Gson().fromJson(extras.get("user").toString(), User.class);
+            if(user != null)
+                active_user = user;
+        }
+
+
+    }
+
+
     private void updateLabel(Calendar calendar, EditText text) {
         String myFormat = "yy-MM-dd";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
@@ -112,6 +138,8 @@ public class SearchActivity extends AppCompatActivity {
             onSearchFailed();
             return;
         }
+
+
         String location = _location.getText().toString();
         String guests = _guests.getText().toString();
         String arrival_date = _arrival_date.getText().toString();
@@ -186,10 +214,7 @@ public class SearchActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-
-            searchResidence.setUsername("chris");
-
-
+            searchResidence.setUsername(active_user.getUsername());
             Residence[] result = null;
             try {
                 HttpEntity<SearchResidenceDto> request = new HttpEntity<>(searchResidence);
@@ -205,11 +230,14 @@ public class SearchActivity extends AppCompatActivity {
         protected void onPostExecute(Residence[]  resultSet) {
             if(resultSet != null){
                 Intent intent = new Intent(getApplicationContext(), MainLoggedInActivity.class);
-                Bundle bundle = new Bundle();
 
                 String residences_json = new Gson().toJson(resultSet);
                 bundle.putString("residences", residences_json);
                 intent.putExtras(bundle);
+
+                String user_json = new Gson().toJson(active_user);
+                bundle.putString("user", user_json);
+
                 startActivity(intent);
             }else
                 onSearchFailed();

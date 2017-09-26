@@ -6,4 +6,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.airbnb.activities.MapsActivity"
-    tools:layout="@layout/listing_fifth_step" />
+    tools:layout="@layout/listing_place_map" />

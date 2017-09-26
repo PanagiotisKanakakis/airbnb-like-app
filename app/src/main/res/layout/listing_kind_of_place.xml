@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context="com.airbnb.activities.HostMainActivity">
+    tools:context="com.airbnb.activities.ListingActivity">
 
     <LinearLayout
-        android:layout_width="368dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="24dp"
-        android:paddingRight="24dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp">
+        android:paddingRight="24dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -22,24 +20,11 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="40dp"
-            android:text="How many bathrooms?"
+            android:text="What kind of place are you listing?"
             android:textColor="@color/black"
             android:textSize="30dp"
             android:textStyle="bold" />
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/bathrooms_for_guests"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:text="1"
-                android:hint="Bathrooms for guests" />
-        </android.support.design.widget.TextInputLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,16 +32,18 @@
             android:layout_marginTop="8dp">
 
             <CheckedTextView
-                android:id="@+id/shared_bathroom"
+                android:id="@+id/entire_place"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:checkMark="?android:attr/listChoiceIndicatorMultiple"
                 android:gravity="left"
-                android:text="Shared bathroom"
+                android:clickable="true"
+                android:checked="true"
+                android:text="Entire place"
                 android:textColor="#000000"
                 android:textSize="18dp" />
 
@@ -66,7 +53,6 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
             android:background="@drawable/imageborder" />
 
         <LinearLayout
@@ -76,17 +62,17 @@
             android:layout_marginTop="8dp">
 
             <CheckedTextView
-                android:id="@+id/private_bathroom"
+                android:id="@+id/private_room"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-                android:checked="true"
+                android:checked="false"
                 android:gravity="left"
-                android:text="Private bathroom"
+                android:text="Private room"
                 android:textColor="#000000"
                 android:textSize="18dp" />
 
@@ -96,19 +82,50 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:background="@drawable/imageborder" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
+
+            <CheckedTextView
+                android:id="@+id/shared_room"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                android:checked="false"
+                android:gravity="left"
+                android:text="Shared room"
+                android:textColor="#000000"
+                android:textSize="18dp" />
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imgView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@drawable/imageborder" />
 
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_thr_next"
+            android:id="@+id/btn_kind_of_place"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginBottom="24dp"
             android:layout_marginTop="24dp"
-            android:text="Next" />
+            android:layout_marginBottom="24dp"
+            android:padding="12dp"
+            android:layout_gravity="right"
+            android:text="Next"/>
+
     </LinearLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+</ScrollView>

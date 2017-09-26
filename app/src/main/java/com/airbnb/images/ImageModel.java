@@ -1,4 +1,4 @@
-package com.airbnb.activities;
+package com.airbnb.images;
 
 /**
  * Created by panagiotis on 9/9/2017.

@@ -19,8 +19,10 @@ public class Residence {
     private Integer bedrooms;
     private Boolean livingRoom;
     private String location;
+    private String title;
+    private Integer beds;
 
-    private List<Photo> photos = new ArrayList<>();
+    private List<String> photoPaths = new ArrayList<>();
 
     //private List<User> users;
     private List<Comment> comments = new ArrayList<>();
@@ -138,9 +140,6 @@ public class Residence {
         this.location = location;
     }
 
-    public List<Photo> getPhotos() {
-        return photos;
-    }
 
    /* public void setUsers(List<User> users) {
         this.users = users;
@@ -160,5 +159,29 @@ public class Residence {
 
     public void setReservationInfo(List<Reservation> reservationInfo) {
         this.reservationInfo = reservationInfo;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getBeds() {
+        return beds;
+    }
+
+    public void setBeds(Integer beds) {
+        this.beds = beds;
+    }
+
+    public List<String> getPhotoPaths() {
+        return photoPaths;
+    }
+
+    public void setPhotoPaths(List<String> photoPaths) {
+        this.photoPaths = photoPaths;
     }
 }

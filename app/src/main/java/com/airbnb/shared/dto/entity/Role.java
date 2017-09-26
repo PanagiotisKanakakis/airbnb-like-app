@@ -9,7 +9,6 @@ public class Role{
     private Integer roleId;
     private String description;
 
-    @JsonIgnore
     private List<User> users;
 
     public Integer getRoleId() {

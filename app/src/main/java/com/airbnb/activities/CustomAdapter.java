@@ -11,6 +11,7 @@ import android.widget.ListAdapter;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.airbnb.images.ImageModel;
 import com.sourcey.activities.R;
 
 import java.util.ArrayList;

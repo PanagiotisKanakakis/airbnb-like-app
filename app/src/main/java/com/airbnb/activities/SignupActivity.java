@@ -15,9 +15,11 @@ import android.widget.Toast;
 
 import com.airbnb.Utils.Util;
 import com.airbnb.rest.RestApi;
+import com.airbnb.shared.dto.entity.User;
 import com.airbnb.shared.dto.user.RoleDto;
 import com.airbnb.shared.dto.user.UserRegisterRequestDto;
 import com.airbnb.shared.dto.user.UserRegisterResponseDto;
+import com.google.gson.Gson;
 import com.sourcey.activities.R;
 
 import org.springframework.http.HttpEntity;
@@ -100,9 +102,19 @@ public class SignupActivity extends AppCompatActivity {
     }
 
 
-    public void onSignupSuccess() {
+    public void onSignupSuccess(User user) {
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
+
+
+        Intent intent = new Intent(getApplicationContext(), MainLoggedInActivity.class);
+        Bundle bundle = new Bundle();
+
+        String user_json = new Gson().toJson(user);
+        bundle.putString("user", user_json);
+        intent.putExtras(bundle);
+        startActivity(intent);
+
         finish();
     }
 
@@ -174,12 +186,12 @@ public class SignupActivity extends AppCompatActivity {
         return valid;
     }
 
-    private class SignUp extends AsyncTask<Object,Void,UserRegisterResponseDto>{
+    private class SignUp extends AsyncTask<Object,Void,User>{
 
         private RestTemplate restTemplate = new RestApi().getRestTemplate();
 
         @Override
-        protected UserRegisterResponseDto doInBackground(Object... params) {
+        protected User doInBackground(Object... params) {
             String uri = "";
             try {
                 uri = Util.getProperty("baseAddress",getApplicationContext()) +  "/register";
@@ -201,10 +213,10 @@ public class SignupActivity extends AppCompatActivity {
                 roles.add(RoleDto.TENANT);
             userRegisterRequestDto.setRoleDtos(roles);
 
-            UserRegisterResponseDto result = null;
+            User result = null;
             try {
                 HttpEntity<UserRegisterRequestDto> request = new HttpEntity<>(userRegisterRequestDto);
-                result = restTemplate.postForObject(uri,request, UserRegisterResponseDto.class);
+                result = restTemplate.postForObject(uri,request, User.class);
                 return result;
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
@@ -213,12 +225,12 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(UserRegisterResponseDto userRegisterResponseDto) {
-            if(userRegisterResponseDto != null){
+        protected void onPostExecute(final User user) {
+            if(user != null){
                 new android.os.Handler().postDelayed(
                         new Runnable() {
                             public void run() {
-                                onSignupSuccess();
+                                onSignupSuccess(user);
                                 progressDialog.dismiss();
                             }
                         }, 3000);

@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.airbnb.images.ImageModel;
 import com.airbnb.shared.dto.entity.Residence;
+import com.airbnb.shared.dto.entity.User;
 import com.google.gson.Gson;
 import com.sourcey.activities.R;
 
@@ -27,19 +29,35 @@ public class MainLoggedInActivity extends AppCompatActivity {
     @Bind(R.id.inbox) TextView _inboxLink;
     @Bind(R.id.host) TextView _hostLink;
 
+    private User active_user;
+    private Bundle bundle = new Bundle();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_logged_in);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+
+        if(getIntent()!=null && getIntent().getExtras() != null){
+            Bundle extras = getIntent().getExtras();
+            User user = new Gson().fromJson(extras.get("user").toString(), User.class);
+            if(user != null) {
+                active_user = user;
+                String user_json = new Gson().toJson(active_user);
+                bundle.putString("user", user_json);
+            }
+        }
+
+
         searchResult.setVisibility(ListView.INVISIBLE);
 
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                startActivityForResult(intent, 5);
+                intent.putExtras(bundle);
+                startActivity(intent);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
@@ -48,8 +66,8 @@ public class MainLoggedInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), InboxActivity.class);
-                startActivityForResult(intent, INBOX);
-                finish();
+                intent.putExtras(bundle);
+                startActivity(intent);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
@@ -58,8 +76,8 @@ public class MainLoggedInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                startActivityForResult(intent, PROFILE);
-                finish();
+                intent.putExtras(bundle);
+                startActivity(intent);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
@@ -68,8 +86,8 @@ public class MainLoggedInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), HostMainActivity.class);
-                startActivityForResult(intent, HOST);
-                finish();
+                intent.putExtras(bundle);
+                startActivity(intent);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
@@ -80,26 +98,9 @@ public class MainLoggedInActivity extends AppCompatActivity {
         super.onResume();
         if(getIntent()!=null && getIntent().getExtras() != null){
             Bundle extras = getIntent().getExtras();
-            Residence[] residences = new Gson().fromJson(extras.get("residences").toString(), Residence[].class);
-            if(residences != null){
-                searchResult.setVisibility(ListView.VISIBLE);
-                ArrayList<ImageModel> rs = new ArrayList();
-                for(int i = 0;i<10;i++) {
-                    for (Residence r : residences) {
-                        ImageModel img = new ImageModel();
-                        img.setDescription(r.getDescription());
-                        img.setCost("$" + r.getPrize().toString() + "per night");
-                        img.setType(r.getType());
-                        img.setGrade("-" + r.getComments().size());
-                        img.setReviews(String.valueOf(r.getComments().size()));
-                        img.setImage_drawable(R.drawable.man);
-                        rs.add(img);
-                    }
-                }
-                CustomAdapter customUpdater = new CustomAdapter(this,rs);
-                searchResult.setAdapter(customUpdater);
-
-            }
+            User user = new Gson().fromJson(extras.get("user").toString(), User.class);
+            if(user != null)
+                active_user = user;
         }
 
 
