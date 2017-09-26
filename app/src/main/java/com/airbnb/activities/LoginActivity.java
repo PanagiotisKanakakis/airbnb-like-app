@@ -1,45 +1,53 @@
 package com.airbnb.activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-
-import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.Utils.Util;
 import com.airbnb.rest.RestApi;
+import com.airbnb.shared.dto.entity.User;
 import com.airbnb.shared.dto.user.UserLogInRequestDto;
 import com.airbnb.shared.dto.user.UserLogInResponseDto;
+import com.google.gson.Gson;
 import com.sourcey.activities.R;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.web.client.RestTemplate;
 
-import butterknife.ButterKnife;
+import java.io.IOException;
+
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+
     private ProgressDialog progressDialog ;
 
     @Bind(R.id.username) EditText _username;
     @Bind(R.id.input_password) EditText _passwordText;
     @Bind(R.id.btn_login) Button _loginButton;
     @Bind(R.id.link_signup) TextView _signupLink;
-    
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        
+
+        progressDialog =  new ProgressDialog(LoginActivity.this,
+                R.style.AppTheme_Dark_Dialog);
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -52,13 +60,20 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                // Start the Signup activity
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
                 finish();
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
+
+
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        progressDialog.dismiss();
     }
 
     public void login() {
@@ -71,8 +86,7 @@ public class LoginActivity extends AppCompatActivity {
 
         _loginButton.setEnabled(false);
 
-        progressDialog =  new ProgressDialog(LoginActivity.this,
-                R.style.AppTheme_Dark_Dialog);
+
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
@@ -80,8 +94,8 @@ public class LoginActivity extends AppCompatActivity {
         String username = _username.getText().toString();
         String password = _passwordText.getText().toString();
 
-        onLoginSuccess();
-        //new Login().execute(username,password);
+       // onLoginSuccess();
+        new Login().execute(username,password);
     }
 
 
@@ -103,10 +117,15 @@ public class LoginActivity extends AppCompatActivity {
         //moveTaskToBack(true);
     }
 
-    public void onLoginSuccess() {
+    public void onLoginSuccess(User user) {
         _loginButton.setEnabled(true);
         Intent intent = new Intent(getApplicationContext(), MainLoggedInActivity.class);
-        startActivityForResult(intent, REQUEST_SIGNUP);
+        Bundle bundle = new Bundle();
+
+        String user_json = new Gson().toJson(user);
+        bundle.putString("user", user_json);
+        intent.putExtras(bundle);
+        startActivity(intent);
         finish();
     }
 
@@ -139,22 +158,28 @@ public class LoginActivity extends AppCompatActivity {
         return valid;
     }
 
-    private class Login extends AsyncTask<String,Void,UserLogInResponseDto> {
+    private class Login extends AsyncTask<String,Void,User> {
 
         private RestTemplate restTemplate =  new RestApi().getRestTemplate();
 
         @Override
-        protected UserLogInResponseDto doInBackground(String... params) {
-            final String uri = "http://192.168.1.2:8080/login";
+        protected User doInBackground(String... params) {
+
+            String uri = "";
+            try {
+                uri = Util.getProperty("baseAddress",getApplicationContext()) +  "/login";
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             UserLogInRequestDto userLogInRequestDto = new UserLogInRequestDto();
             userLogInRequestDto.setUsername(params[0]);
             userLogInRequestDto.setPassword(params[1]);
 
-            UserLogInResponseDto result = null;
+            User result = null;
             try {
                 HttpEntity<UserLogInRequestDto> request = new HttpEntity<>(userLogInRequestDto);
-                result = restTemplate.postForObject(uri,request, UserLogInResponseDto.class);
+                result = restTemplate.postForObject(uri,request, User.class);
                 return result;
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
@@ -163,12 +188,12 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(UserLogInResponseDto userLoginResponseDto) {
-            if(userLoginResponseDto != null) {
+        protected void onPostExecute(final User user) {
+            if(user != null) {
                 new android.os.Handler().postDelayed(
                         new Runnable() {
                             public void run() {
-                                onLoginSuccess();
+                                onLoginSuccess(user);
                                 progressDialog.dismiss();
                             }
                         }, 1000);

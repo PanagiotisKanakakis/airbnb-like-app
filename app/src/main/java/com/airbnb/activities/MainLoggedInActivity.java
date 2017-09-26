@@ -1,35 +1,110 @@
 package com.airbnb.activities;
 
-import android.app.SearchManager;
-import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.airbnb.images.ImageModel;
+import com.airbnb.shared.dto.entity.Residence;
+import com.airbnb.shared.dto.entity.User;
+import com.google.gson.Gson;
 import com.sourcey.activities.R;
 
+import java.util.ArrayList;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class MainLoggedInActivity extends AppCompatActivity {
+    private static final int INBOX = 1;
+    private static final int PROFILE = 2;
+    private static final int HOST = 3;
+    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.searchResultView) ListView searchResult;
+    @Bind(R.id.profile) TextView _profileLink;
+    @Bind(R.id.inbox) TextView _inboxLink;
+    @Bind(R.id.host) TextView _hostLink;
+
+    private User active_user;
+    private Bundle bundle = new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_logged_in);
+        ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
+
+        if(getIntent()!=null && getIntent().getExtras() != null){
+            Bundle extras = getIntent().getExtras();
+            User user = new Gson().fromJson(extras.get("user").toString(), User.class);
+            if(user != null) {
+                active_user = user;
+                String user_json = new Gson().toJson(active_user);
+                bundle.putString("user", user_json);
+            }
+        }
+
+
+        searchResult.setVisibility(ListView.INVISIBLE);
+
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+            }
+        });
+
+        _inboxLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), InboxActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+            }
+        });
+
+        _profileLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+            }
+        });
+
+        _hostLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), HostMainActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+            }
+        });
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.options_menu, menu);
+    protected void onResume(){
+        super.onResume();
+        if(getIntent()!=null && getIntent().getExtras() != null){
+            Bundle extras = getIntent().getExtras();
+            User user = new Gson().fromJson(extras.get("user").toString(), User.class);
+            if(user != null)
+                active_user = user;
+        }
 
-        // Associate searchable configuration with the SearchView
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
-                (SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
-        return true;
+
     }
+
+
 }

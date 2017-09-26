@@ -2,20 +2,85 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     tools:context="com.airbnb.activities.MainLoggedInActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="312dp"
-        android:layout_height="51dp"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        tools:layout_editor_absoluteY="16dp"
-        tools:layout_editor_absoluteX="36dp" />
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/searchbutton"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/searchbarbackground"
+            android:minHeight="?attr/actionBarSize"
+            app:logo="@drawable/search"
+            app:title="Search"
+            app:titleMarginStart="32dp"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
 
+            />
+
+        <ListView
+            android:id="@+id/searchResultView"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="@null" />
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/userMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/inbox"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableTop="@drawable/inbox"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:paddingTop="10dp"
+                android:text="Inbox"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:textColor="@color/black"
+                />
+            <TextView
+                android:id="@+id/profile"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableTop="@drawable/profile"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:paddingTop="10dp"
+                android:text="Profile"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:textColor="@color/black"
+                />
+            <TextView
+                android:id="@+id/host"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableTop="@drawable/arrow"
+                android:paddingLeft="40dp"
+                android:paddingRight="35dp"
+                android:paddingTop="10dp"
+                android:text="Host"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:textColor="@color/black"
+                />
+
+        </android.support.v7.widget.Toolbar>
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

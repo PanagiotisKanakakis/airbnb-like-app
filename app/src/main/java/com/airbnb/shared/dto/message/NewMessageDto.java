@@ -1,8 +1,6 @@
 package com.airbnb.shared.dto.message;
 
 
-import java.util.Date;
-
 /**
  * Created by panagiotis on 7/8/2017.
  */
