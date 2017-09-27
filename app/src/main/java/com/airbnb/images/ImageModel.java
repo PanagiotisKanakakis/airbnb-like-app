@@ -1,5 +1,6 @@
 package com.airbnb.images;
 
+import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 /**
@@ -13,7 +14,7 @@ public class ImageModel {
     private String type;
     private String grade;
     private String reviews;
-    private String imagePath;
+    private Bitmap image;
 
     public String getDescription() {
         return description;
@@ -23,12 +24,12 @@ public class ImageModel {
         this.description = description;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public Bitmap getImage() {
+        return image;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImage(Bitmap imagePath) {
+        this.image = imagePath;
     }
 
     public String getCost() {

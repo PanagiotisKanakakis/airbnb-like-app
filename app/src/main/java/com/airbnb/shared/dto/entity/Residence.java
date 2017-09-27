@@ -22,7 +22,7 @@ public class Residence {
     private String title;
     private Integer beds;
 
-    private List<String> photoPaths = new ArrayList<>();
+    private List<Photo> photoPaths = new ArrayList<>();
 
     //private List<User> users;
     private List<Comment> comments = new ArrayList<>();
@@ -177,11 +177,11 @@ public class Residence {
         this.beds = beds;
     }
 
-    public List<String> getPhotoPaths() {
+    public List<Photo> getPhotoPaths() {
         return photoPaths;
     }
 
-    public void setPhotoPaths(List<String> photoPaths) {
+    public void setPhotoPaths(List<Photo> photoPaths) {
         this.photoPaths = photoPaths;
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
@@ -7,7 +7,7 @@
     tools:context="com.airbnb.activities.NewResidenceListingActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="24dp"
@@ -15,17 +15,34 @@
         tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="8dp">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="40dp"
-            android:text="Listings"
-            android:textColor="@color/black"
-            android:textSize="30dp"
-            android:textStyle="bold" />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="40dp"
+                android:text="Listings"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+            <ImageButton
+                android:id="@+id/addResidence"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="40dp"
+                android:background="@null"
+                android:src="@drawable/add" />
+        </RelativeLayout>
+
 
         <ListView
             android:id="@+id/userResidences"
@@ -33,52 +50,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:divider="@null" />
-
-        <LinearLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/imageborder"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="List another space"
-                android:textColor="@color/iron"
-                android:textSize="20dp"
-                android:textStyle="italic"
-
-                />
-
-            <ImageButton
-                android:id="@+id/remove"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:src="@drawable/arrow" />
-        </LinearLayout>
-
-
-
     </LinearLayout>
-</ScrollView>
+
+
+
+</android.support.constraint.ConstraintLayout>

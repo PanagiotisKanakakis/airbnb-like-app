@@ -19,6 +19,7 @@ import com.airbnb.images.ImageModel;
 import com.sourcey.activities.R;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -110,9 +111,11 @@ public class CustomAdapter implements Adapter, ListAdapter {
         holder.grade.setRating(Float.parseFloat( imageModelArrayList.get(position).getGrade()));
         holder.cost.setText(imageModelArrayList.get(position).getCost());
         holder.reviews.setText(imageModelArrayList.get(position).getReviews());
-        File imgFile = new  File(imageModelArrayList.get(position).getImagePath());
-        Bitmap captureBmp = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-        holder.iv.setImageBitmap(captureBmp);
+
+        if(imageModelArrayList.get(position) != null)
+            holder.iv.setImageBitmap(imageModelArrayList.get(position).getImage());
+        else
+            holder.iv.setImageBitmap(null);
 
         return convertView;
     }
