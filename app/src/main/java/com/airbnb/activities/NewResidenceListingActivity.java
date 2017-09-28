@@ -1,11 +1,16 @@
 package com.airbnb.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -26,6 +31,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.sourcey.activities.R;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,9 +40,13 @@ import org.springframework.http.HttpEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -125,20 +135,43 @@ public class NewResidenceListingActivity extends FragmentActivity implements OnM
 
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_SINGLE_PICTURE) {
-
                 Uri selectedImageUri = data.getData();
 
-                residence.getPhotoPaths().add(selectedImageUri.toString());
-
                 setContentView(R.layout.photo_preview);
-
                 selectedImagePreview = (ImageView)findViewById(R.id.cover_photo);
+
+                FileOutputStream out = null;
+                Bitmap bitmap = null;
+                File outputFile = null;
                 try {
-                    Bitmap captureBmp = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(residence.getPhotoPaths().get(0)));
-                    selectedImagePreview.setImageBitmap(captureBmp);
-                } catch (IOException e) {
+                    File images = new File("/sdcard/Airbnb/");
+                    images.mkdirs();
+                    outputFile = new File(images, selectedImageUri.toString());
+
+                    System.out.println("Path -> " + outputFile.getAbsolutePath());
+                    System.out.println("Path ->" + "/sdcard/Airbnb/" + selectedImageUri.toString());
+
+                    out = new FileOutputStream(outputFile);
+                    residence.getPhotoPaths().add(outputFile.getAbsolutePath());
+
+                } catch (Exception e) {
                     e.printStackTrace();
+                } finally {
+                    try {
+                        if (out != null) {
+                            out.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                bitmap = BitmapFactory.decodeFile(outputFile.getAbsolutePath(), options);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                selectedImagePreview.setImageBitmap(bitmap);
+                //Picasso.with(getApplicationContext()).load( Uri.parse(residence.getPhotoPaths().get(0))).into(selectedImagePreview);
                 _photo_preview_next_btn = (Button) findViewById(R.id.btn_photo_preview_next);
                 _photo_preview_next_btn.setOnClickListener(onClickListener);
             }

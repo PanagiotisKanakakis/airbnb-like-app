@@ -1,6 +1,7 @@
 package com.airbnb.images;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.widget.ImageView;
 
 /**
@@ -9,12 +10,21 @@ import android.widget.ImageView;
 
 public class ImageModel {
 
+    private Integer residenceId;
     private String description;
     private String cost;
     private String type;
     private String grade;
     private String reviews;
-    private Bitmap image;
+    private String path;
+
+    public Integer getResidenceId() {
+        return residenceId;
+    }
+
+    public void setResidenceId(Integer residenceId) {
+        this.residenceId = residenceId;
+    }
 
     public String getDescription() {
         return description;
@@ -24,12 +34,12 @@ public class ImageModel {
         this.description = description;
     }
 
-    public Bitmap getImage() {
-        return image;
+    public String getPath() {
+        return path;
     }
 
-    public void setImage(Bitmap imagePath) {
-        this.image = imagePath;
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getCost() {

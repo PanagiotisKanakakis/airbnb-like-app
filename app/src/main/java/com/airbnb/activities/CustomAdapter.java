@@ -1,10 +1,12 @@
 package com.airbnb.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +18,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.airbnb.images.ImageModel;
+import com.google.gson.Gson;
 import com.sourcey.activities.R;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -86,7 +90,7 @@ public class CustomAdapter implements Adapter, ListAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
 
         if (convertView == null) {
@@ -100,7 +104,19 @@ public class CustomAdapter implements Adapter, ListAdapter {
             holder.type = (TextView) convertView.findViewById(R.id.type);
             holder.reviews = (TextView) convertView.findViewById(R.id.num_of_reviews);
             holder.iv = (ImageView) convertView.findViewById(R.id.imgView);
-
+            holder.iv.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    Bundle bundle = new Bundle();
+                    Intent intent = new Intent(context, ResidenceDetailsActivity.class);
+                    String residence = new Gson().toJson(imageModelArrayList.get(position));
+                    bundle.putString("residence", residence);
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+                }
+            });
             convertView.setTag(holder);
         }else {
             holder = (ViewHolder)convertView.getTag();
@@ -112,8 +128,14 @@ public class CustomAdapter implements Adapter, ListAdapter {
         holder.cost.setText(imageModelArrayList.get(position).getCost());
         holder.reviews.setText(imageModelArrayList.get(position).getReviews());
 
-        if(imageModelArrayList.get(position) != null)
-            holder.iv.setImageBitmap(imageModelArrayList.get(position).getImage());
+        if(imageModelArrayList.get(position) != null){
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+            Bitmap bitmap = BitmapFactory.decodeFile(imageModelArrayList.get(position).getPath(), options);
+            holder.iv.setImageBitmap(bitmap);
+            //Picasso.with(context).load(imageModelArrayList.get(position).getUri()).into(holder.iv);
+        }
+
         else
             holder.iv.setImageBitmap(null);
 

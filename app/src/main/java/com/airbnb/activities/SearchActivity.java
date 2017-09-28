@@ -17,6 +17,7 @@ import com.airbnb.rest.RestApi;
 import com.airbnb.shared.dto.entity.Residence;
 import com.airbnb.shared.dto.entity.User;
 import com.airbnb.shared.dto.residence.SearchResidenceDto;
+import com.airbnb.shared.dto.user.UserUtilsDto;
 import com.google.gson.Gson;
 import com.sourcey.activities.R;
 import org.springframework.http.HttpEntity;
@@ -197,7 +198,7 @@ public class SearchActivity extends AppCompatActivity {
         @Override
         protected Residence[] doInBackground(String... params) {
 
-            String uri = "";
+            /*String uri = "";
             try {
                 uri = Util.getProperty("baseAddress",getApplicationContext()) +  "/searchResidence";
             } catch (IOException e) {
@@ -223,6 +224,25 @@ public class SearchActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
             }
+            return null;*/
+            String uri = "";
+            try {
+                uri = Util.getProperty("baseAddress",getApplicationContext()) +  "/getUserResidences";
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            UserUtilsDto userUtilsDto = new UserUtilsDto();
+            userUtilsDto.setUsername(active_user.getUsername());
+
+            Residence[] result = null;
+            try {
+                HttpEntity<UserUtilsDto> request = new HttpEntity<>(userUtilsDto);
+                result = restTemplate.postForObject(uri, request,Residence[].class);
+                return result;
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+            }
             return null;
         }
 
@@ -233,11 +253,11 @@ public class SearchActivity extends AppCompatActivity {
 
                 String residences_json = new Gson().toJson(resultSet);
                 bundle.putString("residences", residences_json);
-                intent.putExtras(bundle);
 
                 String user_json = new Gson().toJson(active_user);
                 bundle.putString("user", user_json);
 
+                intent.putExtras(bundle);
                 startActivity(intent);
             }else
                 onSearchFailed();

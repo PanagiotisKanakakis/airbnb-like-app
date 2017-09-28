@@ -41,16 +41,40 @@ public class MainLoggedInActivity extends AppCompatActivity {
 
         if(getIntent()!=null && getIntent().getExtras() != null){
             Bundle extras = getIntent().getExtras();
+
             User user = new Gson().fromJson(extras.get("user").toString(), User.class);
             if(user != null) {
                 active_user = user;
                 String user_json = new Gson().toJson(active_user);
                 bundle.putString("user", user_json);
             }
-        }
+
+            if (extras.get("residences") != null){
+                Residence[] residences = new Gson().fromJson(extras.get("residences").toString(),Residence[].class);
+                if(residences != null){
+                    ArrayList<ImageModel> resultSet = new ArrayList<>();
+                    for(Residence r : residences){
+                        ImageModel im = new ImageModel();
+                        im.setResidenceId(r.getResidenceId());
+                        im.setCost("30");
+                        im.setDescription(r.getDescription());
+                        im.setGrade("0");
+
+                        if(r.getPhotoPaths() != null && r.getPhotoPaths().size() > 0)
+                            im.setPath(r.getPhotoPaths().get(0).getPath());
+
+                        im.setType(r.getType());
+                        resultSet.add(im);
+                    }
+                    searchResult.setAdapter(new CustomAdapter(getApplicationContext(),resultSet));
+                    searchResult.setVisibility(ListView.VISIBLE);
+                }
+            }
+        }else
+            searchResult.setVisibility(ListView.INVISIBLE);
 
 
-        searchResult.setVisibility(ListView.INVISIBLE);
+
 
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,9 +122,37 @@ public class MainLoggedInActivity extends AppCompatActivity {
         super.onResume();
         if(getIntent()!=null && getIntent().getExtras() != null){
             Bundle extras = getIntent().getExtras();
+
             User user = new Gson().fromJson(extras.get("user").toString(), User.class);
-            if(user != null)
+            if(user != null) {
                 active_user = user;
+                String user_json = new Gson().toJson(active_user);
+                bundle.putString("user", user_json);
+            }
+
+            if (extras.get("residences") != null){
+                Residence[] residences = new Gson().fromJson(extras.get("residences").toString(),Residence[].class);
+                if(residences != null){
+                    ArrayList<ImageModel> resultSet = new ArrayList<>();
+                    for(Residence r : residences){
+                        ImageModel im = new ImageModel();
+                        im.setResidenceId(r.getResidenceId());
+                        im.setCost("30");
+                        im.setDescription(r.getDescription());
+                        im.setGrade("0");
+
+                        if(r.getPhotoPaths() != null && r.getPhotoPaths().size() > 0)
+                            im.setPath(r.getPhotoPaths().get(0).getPath());
+
+                        im.setType(r.getType());
+                        resultSet.add(im);
+                    }
+                    searchResult.setAdapter(new CustomAdapter(getApplicationContext(),resultSet));
+                }
+            }
+
+
+
         }
 
 
