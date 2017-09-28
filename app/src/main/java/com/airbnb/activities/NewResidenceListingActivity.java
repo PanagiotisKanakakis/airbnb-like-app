@@ -1,6 +1,7 @@
 package com.airbnb.activities;
 
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -40,16 +41,22 @@ import org.springframework.http.HttpEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import static android.R.attr.bitmap;
 
 /**
  * Created by panagiotis on 16/9/2017.
@@ -140,38 +147,32 @@ public class NewResidenceListingActivity extends FragmentActivity implements OnM
                 setContentView(R.layout.photo_preview);
                 selectedImagePreview = (ImageView)findViewById(R.id.cover_photo);
 
-                FileOutputStream out = null;
-                Bitmap bitmap = null;
-                File outputFile = null;
+                OutputStream out;
+                String root = Environment.getExternalStorageDirectory().getAbsolutePath()+"/";
+                File createDir = new File(root+"airbnb-images"+File.separator);
+                if(!createDir.exists()) {
+                    createDir.mkdir();
+                }
+                String photoPath = selectedImageUri.toString();
+                String filename = photoPath.substring(photoPath.lastIndexOf("/")+1,photoPath.length());
+                File file = new File(root + "airbnb-images" + File.separator + filename);
+                System.out.println("Path -> " + root + "airbnb-images" + File.separator + filename);
+                System.out.println("Path -> " + root + "airbnb-images" + File.separator + filename);
                 try {
-                    File images = new File("/sdcard/Airbnb/");
-                    images.mkdirs();
-                    outputFile = new File(images, selectedImageUri.toString());
+                    file.createNewFile();
+                    out = new FileOutputStream(file);
+                    out.write(convertImageToByte(selectedImageUri));
+                    out.close();
 
-                    System.out.println("Path -> " + outputFile.getAbsolutePath());
-                    System.out.println("Path ->" + "/sdcard/Airbnb/" + selectedImageUri.toString());
-
-                    out = new FileOutputStream(outputFile);
-                    residence.getPhotoPaths().add(outputFile.getAbsolutePath());
-
-                } catch (Exception e) {
+                    residence.getPhotoPaths().add(root + "airbnb-images" + File.separator + filename);
+                } catch (IOException e) {
                     e.printStackTrace();
-                } finally {
-                    try {
-                        if (out != null) {
-                            out.close();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 }
 
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-                bitmap = BitmapFactory.decodeFile(outputFile.getAbsolutePath(), options);
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-                selectedImagePreview.setImageBitmap(bitmap);
-                //Picasso.with(getApplicationContext()).load( Uri.parse(residence.getPhotoPaths().get(0))).into(selectedImagePreview);
+                Uri uri = Uri.fromFile(new File(residence.getPhotoPaths().get(0)));
+                Picasso.with(this).load(uri)
+                        .resize(96, 96).centerCrop().into(selectedImagePreview);
+
                 _photo_preview_next_btn = (Button) findViewById(R.id.btn_photo_preview_next);
                 _photo_preview_next_btn.setOnClickListener(onClickListener);
             }
@@ -179,6 +180,21 @@ public class NewResidenceListingActivity extends FragmentActivity implements OnM
             Toast.makeText(getApplicationContext(), "Failed to get intent data", Toast.LENGTH_LONG).show();
             Log.d(NewResidenceListingActivity.class.getSimpleName(), "Failed to get intent data, result code is " + resultCode);
         }
+    }
+
+    public byte[] convertImageToByte(Uri uri){
+        byte[] data = null;
+        try {
+            ContentResolver cr = getBaseContext().getContentResolver();
+            InputStream inputStream = cr.openInputStream(uri);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            data = baos.toByteArray();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return data;
     }
 
     private View.OnClickListener onClickListener =  new View.OnClickListener(){

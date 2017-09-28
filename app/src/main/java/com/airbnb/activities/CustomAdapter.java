@@ -129,11 +129,10 @@ public class CustomAdapter implements Adapter, ListAdapter {
         holder.reviews.setText(imageModelArrayList.get(position).getReviews());
 
         if(imageModelArrayList.get(position) != null){
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-            Bitmap bitmap = BitmapFactory.decodeFile(imageModelArrayList.get(position).getPath(), options);
-            holder.iv.setImageBitmap(bitmap);
-            //Picasso.with(context).load(imageModelArrayList.get(position).getUri()).into(holder.iv);
+            Uri uri = Uri.fromFile(new File(imageModelArrayList.get(position).getPath()));
+            System.out.println("Path on listing ->" + imageModelArrayList.get(position).getPath());
+            Picasso.with(context).load(uri)
+                    .resize(96, 96).centerCrop().into(holder.iv);
         }
 
         else
