@@ -8,19 +8,12 @@ import java.util.List;
 public class UserUpdateProfileDto {
 
     private String username;
-
     private String name;
-
     private String surname;
-
     private String email;
-
     private String phoneNumber;
-
     private String city;
-
     private String photo;
-
     private List<RoleDto> roleDtos;
 
     public String getUsername() {

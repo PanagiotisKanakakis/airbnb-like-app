@@ -52,6 +52,9 @@
         <activity
             android:name="com.airbnb.activities.NewResidenceListingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.airbnb.activities.ProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

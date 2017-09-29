@@ -1,15 +1,21 @@
 package com.airbnb.activities;
 
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,11 +27,18 @@ import com.airbnb.shared.dto.user.UserRegisterRequestDto;
 import com.airbnb.shared.dto.user.UserRegisterResponseDto;
 import com.google.gson.Gson;
 import com.sourcey.activities.R;
+import com.squareup.picasso.Picasso;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +47,11 @@ import butterknife.ButterKnife;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
+    public static final String IMAGE_TYPE = "image/*";
+    private static final int SELECT_SINGLE_PICTURE = 101;
     private ProgressDialog progressDialog ;
     @Bind(R.id.input_name) EditText _nameText;
+    @Bind(R.id.imgView) ImageView _img;
     @Bind(R.id.input_surname) EditText _surnameText;
     @Bind(R.id.input_email) EditText _emailText;
     @Bind(R.id.input_mobile) EditText _mobileText;
@@ -46,7 +62,8 @@ public class SignupActivity extends AppCompatActivity {
     @Bind(R.id.host) CheckBox _host;
     @Bind(R.id.btn_signup) Button _signupButton;
     @Bind(R.id.link_login) TextView _loginLink;
-    
+
+    private String path;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +88,70 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
+        _img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType(IMAGE_TYPE);
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent,"Select Picture"), SELECT_SINGLE_PICTURE);
+            }
+        });
     }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SELECT_SINGLE_PICTURE) {
+                Uri selectedImageUri = data.getData();
+
+                OutputStream out;
+                String root = Environment.getExternalStorageDirectory().getAbsolutePath()+"/";
+                File createDir = new File(root+"airbnb-images"+File.separator);
+                if(!createDir.exists()) {
+                    createDir.mkdir();
+                }
+                String photoPath = selectedImageUri.toString();
+                String filename = photoPath.substring(photoPath.lastIndexOf("/")+1,photoPath.length());
+                File file = new File(root + "airbnb-images" + File.separator + filename);
+                try {
+                    file.createNewFile();
+                    out = new FileOutputStream(file);
+                    out.write(convertImageToByte(selectedImageUri));
+                    out.close();
+
+                    path = root + "airbnb-images" + File.separator + filename;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Uri uri = Uri.fromFile(new File(path));
+                Picasso.with(this).load(uri)
+                        .resize(600,400)
+                        .centerCrop().into(_img);
+
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), "Failed to get intent data", Toast.LENGTH_LONG).show();
+            Log.d(NewResidenceListingActivity.class.getSimpleName(), "Failed to get intent data, result code is " + resultCode);
+        }
+    }
+
+    public byte[] convertImageToByte(Uri uri){
+        byte[] data = null;
+        try {
+            ContentResolver cr = getBaseContext().getContentResolver();
+            InputStream inputStream = cr.openInputStream(uri);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            data = baos.toByteArray();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
 
     public void signup() {
         Log.d(TAG, "Signup");
@@ -205,6 +285,7 @@ public class SignupActivity extends AppCompatActivity {
             userRegisterRequestDto.setPhoneNumber(params[3].toString());
             userRegisterRequestDto.setPassword(params[4].toString());
             userRegisterRequestDto.setUsername(params[5].toString());
+            userRegisterRequestDto.setPhotoPath(path);
             List<RoleDto> roles = new ArrayList<>();
 
             if (Boolean.getBoolean(params[6].toString()))
