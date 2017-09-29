@@ -39,7 +39,8 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/userMenu"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
             <TextView
                 android:id="@+id/inbox"
                 android:layout_width="wrap_content"

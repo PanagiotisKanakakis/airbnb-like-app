@@ -5,7 +5,8 @@ public class Comment{
     private Integer commentId;
     private String comment;
     private Integer grade;
-    //private Residence residenceEntity;
+    private Residence residenceEntity;
+    private User user;
 
     public Integer getCommentId() {
         return commentId;
@@ -31,11 +32,19 @@ public class Comment{
         this.grade = grade;
     }
 
-    /*public Residence getResidenceEntity() {
+    public Residence getResidenceEntity() {
         return residenceEntity;
     }
 
     public void setResidenceEntity(Residence residenceEntity) {
         this.residenceEntity = residenceEntity;
-    }*/
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

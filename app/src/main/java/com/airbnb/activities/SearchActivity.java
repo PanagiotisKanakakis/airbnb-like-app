@@ -1,6 +1,7 @@
 package com.airbnb.activities;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -50,14 +51,15 @@ public class SearchActivity extends AppCompatActivity {
 
     private User active_user ;
     private Bundle bundle = new Bundle();
-
+    private ProgressDialog progressDialog ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
-
+        progressDialog =  new ProgressDialog(SearchActivity.this,
+                R.style.AppTheme_Dark_Dialog);
         if(getIntent()!=null && getIntent().getExtras() != null){
             Bundle extras = getIntent().getExtras();
             User user = new Gson().fromJson(extras.get("user").toString(), User.class);
@@ -152,6 +154,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private void onSearchFailed() {
         Toast.makeText(getBaseContext(), "Search failed", Toast.LENGTH_LONG).show();
+
     }
 
     private boolean validate() {
@@ -198,7 +201,7 @@ public class SearchActivity extends AppCompatActivity {
         @Override
         protected Residence[] doInBackground(String... params) {
 
-            /*String uri = "";
+            String uri = "";
             try {
                 uri = Util.getProperty("baseAddress",getApplicationContext()) +  "/searchResidence";
             } catch (IOException e) {
@@ -224,33 +227,13 @@ public class SearchActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
             }
-            return null;*/
-            String uri = "";
-            try {
-                uri = Util.getProperty("baseAddress",getApplicationContext()) +  "/getUserResidences";
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            UserUtilsDto userUtilsDto = new UserUtilsDto();
-            userUtilsDto.setUsername(active_user.getUsername());
-
-            Residence[] result = null;
-            try {
-                HttpEntity<UserUtilsDto> request = new HttpEntity<>(userUtilsDto);
-                result = restTemplate.postForObject(uri, request,Residence[].class);
-                return result;
-            } catch (Exception e) {
-                Log.e(TAG, e.getMessage());
-            }
             return null;
         }
 
         @Override
         protected void onPostExecute(Residence[]  resultSet) {
-            if(resultSet != null){
-                Intent intent = new Intent(getApplicationContext(), MainLoggedInActivity.class);
-
+            Intent intent = new Intent(getApplicationContext(), MainLoggedInActivity.class);
+            if(resultSet != null && resultSet.length > 0){
                 String residences_json = new Gson().toJson(resultSet);
                 bundle.putString("residences", residences_json);
 
@@ -259,8 +242,15 @@ public class SearchActivity extends AppCompatActivity {
 
                 intent.putExtras(bundle);
                 startActivity(intent);
-            }else
-                onSearchFailed();
+            }else{
+                new android.os.Handler().postDelayed(
+                        new Runnable() {
+                            public void run() {
+                                onSearchFailed();
+                                progressDialog.dismiss();
+                            }
+                        }, 1000);
+            }
         }
     }
 }

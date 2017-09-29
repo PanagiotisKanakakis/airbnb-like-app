@@ -8,10 +8,19 @@ public class CommentDto {
         private Integer commentId;
         private String comment;
         private Integer grade;
+        private String username;
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
 
         public Integer getCommentId() {
-            return commentId;
-        }
+                return commentId;
+            }
 
         public void setCommentId(Integer commentId) {
             this.commentId = commentId;

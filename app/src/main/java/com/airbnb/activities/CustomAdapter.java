@@ -34,13 +34,16 @@ public class CustomAdapter implements Adapter, ListAdapter {
 
     private Context context;
     private ArrayList<ImageModel> imageModelArrayList;
+    private String mode;
+    private Bundle bundle;
 
 
-    public CustomAdapter(Context context, ArrayList<ImageModel> imageModelArrayList) {
+    public CustomAdapter(Context context, ArrayList<ImageModel> imageModelArrayList, String mode, Bundle bundle) {
 
         this.context = context;
         this.imageModelArrayList = imageModelArrayList;
-
+        this.mode = mode;
+        this.bundle = bundle;
     }
 
     @Override
@@ -104,19 +107,7 @@ public class CustomAdapter implements Adapter, ListAdapter {
             holder.type = (TextView) convertView.findViewById(R.id.type);
             holder.reviews = (TextView) convertView.findViewById(R.id.num_of_reviews);
             holder.iv = (ImageView) convertView.findViewById(R.id.imgView);
-            holder.iv.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    Bundle bundle = new Bundle();
-                    Intent intent = new Intent(context, ResidenceDetailsActivity.class);
-                    String residence = new Gson().toJson(imageModelArrayList.get(position));
-                    bundle.putString("residence", residence);
-                    intent.putExtras(bundle);
-                    context.startActivity(intent);
-                }
-            });
+
             convertView.setTag(holder);
         }else {
             holder = (ViewHolder)convertView.getTag();
@@ -129,10 +120,27 @@ public class CustomAdapter implements Adapter, ListAdapter {
         holder.reviews.setText(imageModelArrayList.get(position).getReviews());
 
         if(imageModelArrayList.get(position) != null){
-            Uri uri = Uri.fromFile(new File(imageModelArrayList.get(position).getPath()));
-            System.out.println("Path on listing ->" + imageModelArrayList.get(position).getPath());
-            Picasso.with(context).load(uri)
-                    .resize(96, 96).centerCrop().into(holder.iv);
+            holder.iv.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    Intent intent = new Intent(context, ResidenceDetailsActivity.class);
+                    String residenceId = new Gson().toJson(imageModelArrayList.get(position).getResidenceId());
+                    bundle.putString("mode",mode);
+                    bundle.putString("residenceId", residenceId);
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+                }
+            });
+
+            if(imageModelArrayList.get(position).getPath() != null){
+                Uri uri = Uri.fromFile(new File(imageModelArrayList.get(position).getPath()));
+                Picasso.with(context).load(uri)
+                        .resize(1000, 400)
+                        .centerCrop().into(holder.iv);
+            }
+
         }
 
         else
@@ -158,7 +166,7 @@ public class CustomAdapter implements Adapter, ListAdapter {
         protected RatingBar grade;
         protected TextView cost;
         protected TextView reviews;
-        private ImageView iv;
+        protected ImageView iv;
 
     }
 }

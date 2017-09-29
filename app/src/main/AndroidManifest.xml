@@ -73,6 +73,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.airbnb.activities.ResidenceDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name="com.airbnb.activities.UpdateResidenceActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

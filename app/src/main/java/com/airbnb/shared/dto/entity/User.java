@@ -22,6 +22,17 @@ public class User {
     private List<Reservation> reservedResidences = new ArrayList<>();
 
     private Mailbox mailbox = new Mailbox();
+    private Comment comment;
+
+
+    public Comment getComment() {
+        return comment;
+    }
+
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
+
 
     public String getUsername() {
         return username;

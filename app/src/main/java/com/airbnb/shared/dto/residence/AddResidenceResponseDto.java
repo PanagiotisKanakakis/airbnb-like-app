@@ -1,43 +1,48 @@
 package com.airbnb.shared.dto.residence;
 
+import com.airbnb.shared.dto.entity.Comment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddResidenceResponseDto {
 
     private Integer residenceId;
-
     private String address;
-
     private Double geoX;
-
     private Double geoY;
-
     private String datesReserved;
-
     private Integer capacity;
-
     private Integer prize;
-
     private String type;
-
     private String rules;
-
     private String description;
-
     private Integer bathrooms;
-
     private Double size;
-
     private Integer bedrooms;
-
+    private Integer beds;
     private Boolean livingRoom;
-
     private String location;
-
     private String  username;
+    private List<String> photoPaths = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 
-    private List<String> photoPaths;
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Integer getBeds() {
+        return beds;
+    }
+
+    public void setBeds(Integer beds) {
+        this.beds = beds;
+    }
 
     public Integer getResidenceId() {
         return residenceId;

@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.airbnb.Utils.Util;
 import com.airbnb.images.ImageModel;
 import com.airbnb.rest.RestApi;
+import com.airbnb.shared.dto.entity.Comment;
 import com.airbnb.shared.dto.entity.Residence;
 import com.airbnb.shared.dto.entity.User;
 import com.airbnb.shared.dto.user.UserUtilsDto;
@@ -45,23 +46,19 @@ public class ListingActivity extends AppCompatActivity {
     @Bind(R.id.userResidences) ListView userResidences;
     @Bind(R.id.addResidence) ImageButton addResidence;
     private Residence[] residences ;
+    private String mode;
 
 
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listing_progress);
         ButterKnife.bind(this);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkPermissions();
-        }
-
         if(getIntent()!=null && getIntent().getExtras() != null){
             Bundle extras = getIntent().getExtras();
             User user = new Gson().fromJson(extras.get("user").toString(), User.class);
+            mode = extras.get("mode").toString();
             if(user != null) {
                 active_user = user;
                 String user_json = new Gson().toJson(active_user);
@@ -83,41 +80,6 @@ public class ListingActivity extends AppCompatActivity {
 
     }
 
-    private void checkPermissions(){
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ){
-
-            ActivityCompat.requestPermissions(this,
-                    new String[]{
-                            Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    },
-                    1052);
-        }
-
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-
-        switch (requestCode) {
-            case 1052: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                        && grantResults[1] == PackageManager.PERMISSION_GRANTED){
-                    Toast.makeText(ListingActivity.this, "Permission Granted!", Toast.LENGTH_SHORT).show();
-                    new GetUserResidencesAsyncTask(this).execute();
-                } else {
-                    Toast.makeText(ListingActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
-                }
-                return;
-            }
-
-        }
-    }
 
     private class GetUserResidencesAsyncTask extends AsyncTask<String, Void, Residence[]> {
         private RestTemplate restTemplate =  new RestApi().getRestTemplate();
@@ -153,14 +115,22 @@ public class ListingActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Residence[] result) {
-            if(result != null){
+            if(result != null && result.length > 0){
                 ArrayList<ImageModel> resultSet = new ArrayList<>();
                 for(Residence r : result){
                     ImageModel im = new ImageModel();
                     im.setResidenceId(r.getResidenceId());
-                    im.setCost("30");
+                    im.setCost(String.valueOf(r.getPrize()));
                     im.setDescription(r.getDescription());
-                    im.setGrade("0");
+
+                    int sum = 0;
+                    for(Comment c : r.getComments())
+                        sum += c.getGrade();
+
+                    if(r.getComments().size() > 0)
+                        im.setGrade(String.valueOf(sum / r.getComments().size()));
+                    else
+                        im.setGrade(String.valueOf(0.0));
 
                     if(r.getPhotoPaths() != null && r.getPhotoPaths().size() > 0)
                         im.setPath(r.getPhotoPaths().get(0).getPath());
@@ -168,7 +138,7 @@ public class ListingActivity extends AppCompatActivity {
                     im.setType(r.getType());
                     resultSet.add(im);
                 }
-                userResidences.setAdapter(new CustomAdapter(getApplicationContext(),resultSet));
+                userResidences.setAdapter(new CustomAdapter(getApplicationContext(),resultSet,mode,bundle));
             }
         }
     }

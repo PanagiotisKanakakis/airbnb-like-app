@@ -78,6 +78,7 @@ public class NewResidenceListingActivity extends FragmentActivity implements OnM
     private Button _come_back_later_btn;
     private Button _btn_description;
     private Button _btn_title;
+    private Button _btn_rules_cost;
     private Button _photo_preview_next_btn = null;
     private GoogleMap mMap;
     private AddResidenceRequestDto residence = new AddResidenceRequestDto();
@@ -156,8 +157,6 @@ public class NewResidenceListingActivity extends FragmentActivity implements OnM
                 String photoPath = selectedImageUri.toString();
                 String filename = photoPath.substring(photoPath.lastIndexOf("/")+1,photoPath.length());
                 File file = new File(root + "airbnb-images" + File.separator + filename);
-                System.out.println("Path -> " + root + "airbnb-images" + File.separator + filename);
-                System.out.println("Path -> " + root + "airbnb-images" + File.separator + filename);
                 try {
                     file.createNewFile();
                     out = new FileOutputStream(file);
@@ -171,7 +170,8 @@ public class NewResidenceListingActivity extends FragmentActivity implements OnM
 
                 Uri uri = Uri.fromFile(new File(residence.getPhotoPaths().get(0)));
                 Picasso.with(this).load(uri)
-                        .resize(96, 96).centerCrop().into(selectedImagePreview);
+                        .resize(1000, 400)
+                        .centerCrop().into(selectedImagePreview);
 
                 _photo_preview_next_btn = (Button) findViewById(R.id.btn_photo_preview_next);
                 _photo_preview_next_btn.setOnClickListener(onClickListener);
@@ -210,6 +210,8 @@ public class NewResidenceListingActivity extends FragmentActivity implements OnM
                 storeLocationDetails();
             } else if (view.getId() == _map_btn.getId()) {
                 checkMapLocation();
+            }else if (view.getId() == _btn_rules_cost.getId()){
+                rulesAndCost();
             } else if (view.getId() == _add_photos.getId()) {
                 addPhotosActions();
             } else if (view.getId() == _come_back_later_btn.getId()) {
@@ -252,13 +254,21 @@ public class NewResidenceListingActivity extends FragmentActivity implements OnM
     }
 
     private void checkMapLocation() {
+        setContentView(R.layout.listing_rules_cost);
+        _btn_rules_cost = (Button) findViewById(R.id.btn_place_cost_rules);
+        _btn_rules_cost.setOnClickListener(onClickListener);
+
+    }
+
+    private void rulesAndCost(){
+        residence.setRules(((EditText)findViewById(R.id.rules)).getText().toString());
+        residence.setPrize(Integer.parseInt(((EditText)findViewById(R.id.cost)).getText().toString()));
 
         setContentView(R.layout.listing_place_images);
         _add_photos = (Button) findViewById(R.id.btn_add_photos);
         _add_photos.setOnClickListener(onClickListener);
         _come_back_later_btn = (Button) findViewById(R.id.btn_come_back_later);
         _come_back_later_btn.setOnClickListener(onClickListener);
-
     }
 
     private void storeLocationDetails() {
