@@ -96,6 +96,7 @@ public class CustomAdapter implements Adapter, ListAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
 
+        System.out.println("Position -> " + position);
         if (convertView == null) {
             holder = new ViewHolder(); LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);

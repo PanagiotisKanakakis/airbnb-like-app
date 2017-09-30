@@ -1,10 +1,16 @@
 package com.airbnb.activities;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +30,7 @@ import com.airbnb.shared.dto.entity.User;
 import com.airbnb.shared.dto.residence.AddResidenceResponseDto;
 import com.airbnb.shared.dto.residence.SearchResidenceByIdDto;
 import com.airbnb.shared.dto.residence.SearchResidenceDto;
+import com.airbnb.shared.dto.user.UserUtilsDto;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -33,6 +40,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.sourcey.activities.R;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -87,7 +95,13 @@ public class ResidenceDetailsActivity extends AppCompatActivity implements OnMap
         _checkAvailability.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Bundle args = new Bundle();
+                //args.putParcelable("my_custom_object", myObject);
+                CalendarActivity fragment = new CalendarActivity();
+                fragment.setArguments(args);
+                android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.calendar_view, fragment);
+                transaction.commit();
             }
         });
 
@@ -96,13 +110,6 @@ public class ResidenceDetailsActivity extends AppCompatActivity implements OnMap
             final String residenceId = new Gson().fromJson(extras.get("residenceId").toString(), String.class);
             this.mode = extras.get("mode").toString();
 
-           /* User user = new Gson().fromJson(extras.get("user").toString(), User.class);
-            mode = extras.get("mode").toString();
-            if(user != null) {
-                active_user = user;
-                String user_json = new Gson().toJson(active_user);
-                extras.putString("user", user_json);
-            }*/
             if(residenceId != null) {
                 new GetResidenceByIdAsyncTask(this).execute(Integer.parseInt(residenceId));
                 new GetCommentsOfResidenceAsyncTask(this).execute(Integer.parseInt(residenceId));
@@ -161,6 +168,9 @@ public class ResidenceDetailsActivity extends AppCompatActivity implements OnMap
         @Override
         protected void onPostExecute(AddResidenceResponseDto residence) {
            if(residence != null){
+
+               new GetHostInfoAsyncTask(context).execute(residence.getUsername());
+
                _type.setText(residence.getType());
                _hostedBy.setText("Hosted by " + residence.getUsername());
                _guests.setText(String.valueOf(residence.getCapacity()) + " Guest(s)");
@@ -245,6 +255,73 @@ public class ResidenceDetailsActivity extends AppCompatActivity implements OnMap
         mMap = googleMap;
     }
 
+
+    private class GetHostInfoAsyncTask extends AsyncTask<String, Void, User> {
+
+        private RestTemplate restTemplate =  new RestApi().getRestTemplate();
+        private Context context;
+
+        public GetHostInfoAsyncTask(Context applicationContext) {
+            this.context = applicationContext;
+        }
+
+        @Override
+        protected User doInBackground(String... params) {
+
+            String uri = "";
+            try {
+                uri = Util.getProperty("baseAddress",getApplicationContext()) + "/getProfile";
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            UserUtilsDto userUtilsDto = new UserUtilsDto();
+            userUtilsDto.setUsername(params[0]);
+
+            User result = null;
+            try {
+                HttpEntity<UserUtilsDto> request = new HttpEntity<>(userUtilsDto);
+                result = restTemplate.postForObject(uri, request,User.class);
+                return result;
+            } catch (Exception e) {
+                Log.e("tag", e.getMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(User user) {
+            if(user != null){
+
+                String user_json = new Gson().toJson(user);
+                extras.putString("host_user", user_json);
+
+                ImageView user_image = (ImageView) findViewById(R.id.user_image);
+
+                if(user.getProfilePhoto() != null && user.getProfilePhoto().getPath() != null){
+                    Uri uri = Uri.fromFile(new File(user.getProfilePhoto().getPath()));
+                    Picasso.with(context)
+                            .load(uri)
+                            .transform(new CircleTransform())
+                            .resize(150,150)
+                            .into(user_image);
+
+                    user_image.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(getApplicationContext(), ViewProfileActivity.class);
+                            intent.putExtras(extras);
+                            startActivityForResult(intent,1);
+                            finish();
+                            overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                        }
+                    });
+                }
+
+
+            }
+        }
+    }
 
 
 

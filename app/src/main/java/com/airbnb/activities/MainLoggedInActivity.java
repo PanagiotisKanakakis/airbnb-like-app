@@ -147,9 +147,17 @@ public class MainLoggedInActivity extends AppCompatActivity {
                     for(Residence r : residences){
                         ImageModel im = new ImageModel();
                         im.setResidenceId(r.getResidenceId());
-                        im.setCost("30");
+                        im.setCost(String.valueOf(r.getPrize()));
                         im.setDescription(r.getDescription());
-                        im.setGrade("0");
+
+                        int sum = 0;
+                        for(Comment c : r.getComments())
+                            sum += c.getGrade();
+
+                        if(r.getComments().size() > 0)
+                            im.setGrade(String.valueOf(sum / r.getComments().size()));
+                        else
+                            im.setGrade(String.valueOf(0.0));
 
                         if(r.getPhotoPaths() != null && r.getPhotoPaths().size() > 0)
                             im.setPath(r.getPhotoPaths().get(0).getPath());

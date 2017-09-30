@@ -127,8 +127,8 @@ public class SignupActivity extends AppCompatActivity {
 
                 Uri uri = Uri.fromFile(new File(path));
                 Picasso.with(this).load(uri)
-                        .resize(600,400)
-                        .centerCrop().into(_img);
+                        .transform(new CircleTransform())
+                        .resize(150,150).into(_img);
 
             }
         } else {

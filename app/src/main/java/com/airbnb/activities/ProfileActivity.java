@@ -87,9 +87,10 @@ public class ProfileActivity extends AppCompatActivity {
 
                 if(active_user.getProfilePhoto() != null && active_user.getProfilePhoto().getPath() != null){
                     Uri uri = Uri.fromFile(new File(active_user.getProfilePhoto().getPath()));
+                    path = active_user.getProfilePhoto().getPath();
                     Picasso.with(this).load(uri)
-                            .resize(1000, 400)
-                            .centerCrop().into(_img);
+                            .transform(new CircleTransform())
+                            .resize(150,150).into(_img);
                 }
             }
         }
@@ -151,8 +152,8 @@ public class ProfileActivity extends AppCompatActivity {
 
                 Uri uri = Uri.fromFile(new File(path));
                 Picasso.with(this).load(uri)
-                        .resize(600,400)
-                        .centerCrop().into(_img);
+                        .transform(new CircleTransform())
+                        .resize(150,150).into(_img);
 
             }
         } else {

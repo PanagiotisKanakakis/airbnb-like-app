@@ -4,98 +4,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    tools:context="com.airbnb.activities.ResidenceDetailsActivity">
+    tools:context="com.airbnb.activities.MainLoggedInActivity">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:fitsSystemWindows="true">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/searchbutton"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/searchbarbackground"
+        android:minHeight="?attr/actionBarSize"
+        app:logo="@drawable/search"
+        app:title="Search"
+        app:titleMarginStart="32dp"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
 
-        <LinearLayout
-            android:id="@+id/container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="top"
-            android:orientation="vertical">
+        />
+    <ListView
+        android:id="@+id/searchResultView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_above="@+id/below"
+        android:layout_below="@id/toolbar"/>
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                style="@style/searchbutton"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/searchbarbackground"
-                android:minHeight="?attr/actionBarSize"
-                app:logo="@drawable/search"
-                app:title="Search"
-                app:titleMarginStart="32dp"
-                app:titleTextAppearance="@style/Toolbar.TitleText"
-
-                />
-            <ListView
-                android:id="@+id/searchResultView"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:divider="@null" />
-
-        </LinearLayout>
-    </ScrollView>
-
-    <RelativeLayout
-        android:id="@+id/footer"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:id="@+id/below"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/accent"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true">
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/inbox"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/inbox"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:drawableTop="@drawable/inbox"
-                android:paddingLeft="40dp"
-                android:paddingRight="40dp"
-                android:paddingTop="10dp"
-                android:text="Inbox"
-                android:textSize="15sp"
-                android:textStyle="italic"
-                android:textColor="@color/black"
-                />
-            <TextView
-                android:id="@+id/profile"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:drawableTop="@drawable/profile"
-                android:paddingLeft="40dp"
-                android:paddingRight="40dp"
-                android:paddingTop="10dp"
-                android:text="Profile"
-                android:textSize="15sp"
-                android:textStyle="italic"
-                android:textColor="@color/black"
-                />
+            android:layout_height="match_parent"
+            android:drawableTop="@drawable/inbox"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:paddingTop="10dp"
+            android:text="Inbox"
+            android:textSize="15sp"
+            android:textStyle="italic"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:id="@+id/profile"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableTop="@drawable/profile"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:paddingTop="10dp"
+            android:text="Profile"
+            android:textSize="15sp"
+            android:textStyle="italic"
+            android:textColor="@color/black"
+            />
 
-            <TextView
-                android:id="@+id/host"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:drawableTop="@drawable/arrow"
-                android:paddingLeft="40dp"
-                android:paddingRight="35dp"
-                android:paddingTop="10dp"
-                android:text="Host"
-                android:textSize="15sp"
-                android:textStyle="italic"
-                android:textColor="@color/black"
-                />
+        <TextView
+            android:id="@+id/host"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableTop="@drawable/arrow"
+            android:paddingLeft="40dp"
+            android:paddingRight="35dp"
+            android:paddingTop="10dp"
+            android:text="Host"
+            android:textSize="15sp"
+            android:textStyle="italic"
+            android:textColor="@color/black"
+            />
 
 
-        </LinearLayout>
+    </LinearLayout>
 
-    </RelativeLayout>
 </RelativeLayout>
-
