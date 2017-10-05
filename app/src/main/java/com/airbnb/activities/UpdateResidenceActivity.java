@@ -119,7 +119,7 @@ public class UpdateResidenceActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(final Residence residence) {
             if(residence != null){
-                Intent intent = new Intent(getApplicationContext(), HostMainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), InboxActivity.class);
                 String residence_json = new Gson().toJson(residence);
                 extras.putString("residence",residence_json);
                 intent.putExtras(extras);

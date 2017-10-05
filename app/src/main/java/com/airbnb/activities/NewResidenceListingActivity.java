@@ -482,7 +482,7 @@ public class NewResidenceListingActivity extends FragmentActivity implements OnM
     }
 
     private void onRegistrationSucced() {
-        Intent intent = new Intent(getApplicationContext(), HostMainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), InboxActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);

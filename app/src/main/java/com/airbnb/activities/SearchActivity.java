@@ -126,13 +126,13 @@ public class SearchActivity extends AppCompatActivity {
 
 
     private void updateLabel(Calendar calendar, EditText text) {
-        String myFormat = "yy-MM-dd";
+        String myFormat = "yyyy-MM-dd";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         text.setText(sdf.format(calendar.getTime()));
     }
 
     private Date convert(String date) throws ParseException {
-        return new SimpleDateFormat("yy-MM-dd").parse(date);
+        return new SimpleDateFormat("yyyy-MM-dd").parse(date);
     }
 
     private void search() {
@@ -235,7 +235,7 @@ public class SearchActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), MainLoggedInActivity.class);
             if(resultSet != null && resultSet.length > 0){
                 String residences_json = new Gson().toJson(resultSet);
-                bundle.putString("residences", residences_json);
+                bundle.putString("searched_residences", residences_json);
 
                 String user_json = new Gson().toJson(active_user);
                 bundle.putString("user", user_json);

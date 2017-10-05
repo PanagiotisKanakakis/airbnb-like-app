@@ -1,11 +1,13 @@
 package com.airbnb.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -38,7 +40,6 @@ public class ViewProfileActivity extends AppCompatActivity {
     private Bundle bundle = new Bundle();
     @Bind(R.id.imgView) ImageView _img;
     @Bind(R.id.name) TextView _nameText;
-    @Bind(R.id.reviews) TextView _reviews;
     @Bind(R.id.email) TextView _emailText;
     @Bind(R.id.number_of_homes) TextView _number_of_homes;
     @Bind(R.id.userResidences) ListView _userResidences;
@@ -69,6 +70,17 @@ public class ViewProfileActivity extends AppCompatActivity {
                 new GetUserResidencesAsyncTask(this).execute();
             }
         }
+
+        _emailText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), NewEmailActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+            }
+        });
+
     }
 
     private class GetUserResidencesAsyncTask extends AsyncTask<String, Void, Residence[]> {
@@ -129,6 +141,8 @@ public class ViewProfileActivity extends AppCompatActivity {
                     resultSet.add(im);
                 }
                 _userResidences.setAdapter(new CustomAdapter(getApplicationContext(),resultSet,"tenant",bundle));
+                _number_of_homes.setText(result.length + " home(s)");
+
             }
         }
     }

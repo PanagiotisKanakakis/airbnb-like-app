@@ -82,8 +82,16 @@
         <activity
             android:name="com.airbnb.activities.UpdateResidenceActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.airbnb.activities.ViewProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name="com.airbnb.activities.ViewProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.airbnb.activities.CalendarActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="com.airbnb.activities.NewEmailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="com.airbnb.activities.InboxActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

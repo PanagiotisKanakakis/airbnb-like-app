@@ -38,6 +38,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
+import com.roomorama.caldroid.CaldroidFragment;
 import com.sourcey.activities.R;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -54,6 +55,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Calendar;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -95,13 +97,9 @@ public class ResidenceDetailsActivity extends AppCompatActivity implements OnMap
         _checkAvailability.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle args = new Bundle();
-                //args.putParcelable("my_custom_object", myObject);
-                CalendarActivity fragment = new CalendarActivity();
-                fragment.setArguments(args);
-                android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.calendar_view, fragment);
-                transaction.commit();
+                Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
+                intent.putExtras(extras);
+                startActivity(intent);
             }
         });
 

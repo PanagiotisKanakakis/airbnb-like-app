@@ -49,7 +49,10 @@ public class HostMainActivity extends AppCompatActivity {
         _profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
 

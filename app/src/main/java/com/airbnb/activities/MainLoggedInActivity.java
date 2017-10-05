@@ -61,16 +61,24 @@ public class MainLoggedInActivity extends AppCompatActivity {
 
             }
 
-            if (extras.get("residences") != null){
-                Residence[] residences = new Gson().fromJson(extras.get("residences").toString(),Residence[].class);
+            if (extras.get("searched_residences") != null){
+                Residence[] residences = new Gson().fromJson(extras.get("searched_residences").toString(),Residence[].class);
                 if(residences != null){
                     ArrayList<ImageModel> resultSet = new ArrayList<>();
                     for(Residence r : residences){
                         ImageModel im = new ImageModel();
                         im.setResidenceId(r.getResidenceId());
-                        im.setCost("30");
+                        im.setCost(String.valueOf(r.getPrize()));
                         im.setDescription(r.getDescription());
-                        im.setGrade("0");
+
+                        int sum = 0;
+                        for(Comment c : r.getComments())
+                            sum += c.getGrade();
+
+                        if(r.getComments().size() > 0)
+                            im.setGrade(String.valueOf(sum / r.getComments().size()));
+                        else
+                            im.setGrade(String.valueOf(0.0));
 
                         if(r.getPhotoPaths() != null && r.getPhotoPaths().size() > 0)
                             im.setPath(r.getPhotoPaths().get(0).getPath());
@@ -119,7 +127,7 @@ public class MainLoggedInActivity extends AppCompatActivity {
         _hostLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), HostMainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), InboxActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);

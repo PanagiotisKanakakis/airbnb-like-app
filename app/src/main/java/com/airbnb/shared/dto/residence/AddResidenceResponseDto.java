@@ -1,6 +1,7 @@
 package com.airbnb.shared.dto.residence;
 
 import com.airbnb.shared.dto.entity.Comment;
+import com.airbnb.shared.dto.entity.Reservation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,15 @@ public class AddResidenceResponseDto {
     private String  username;
     private List<String> photoPaths = new ArrayList<>();
     private List<Comment> comments = new ArrayList<>();
+    private List<Reservation> reservationInfo = new ArrayList<>();
 
+    public List<Reservation> getReservationInfo() {
+        return reservationInfo;
+    }
+
+    public void setReservationInfo(List<Reservation> reservationInfo) {
+        this.reservationInfo = reservationInfo;
+    }
 
     public List<Comment> getComments() {
         return comments;
